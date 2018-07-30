@@ -1,0 +1,6 @@
+#auto wlan0
+iface wlan0 inet static
+  address 10.7.1.1
+  netmask 255.255.255.0
+  wireless-mode Master
+

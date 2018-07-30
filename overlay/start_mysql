@@ -1,0 +1,4 @@
+#!/bin/bash
+mkdir /var/run/mysqld
+chown mysql:mysql /var/run/mysqld
+sudo -u mysql -H mysqld_safe --daemonize
