@@ -94,6 +94,7 @@ EOF
 	cp /tmp/overlay/nodered.service /etc/systemd/system/
 	cp /tmp/overlay/hostapd.conf /etc/hostapd.conf
 	cp /tmp/overlay/dnsmasq.conf /etc/dnsmasq.conf
+	cp /tmp/overlay/dnsmasq.service /lib/systemd/system
 
 	sed -i -e "s/^# en_PH.UTF-8 UTF-8/en_PH.UTF-8 UTF-8/" /etc/locale.gen
 	/usr/sbin/locale-gen
