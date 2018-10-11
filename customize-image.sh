@@ -96,6 +96,7 @@ EOF
 	cp /tmp/overlay/dnsmasq.conf /etc/dnsmasq.conf
 	cp /tmp/overlay/dnsmasq.service /lib/systemd/system
 
+
 	sed -i -e "s/^# en_PH.UTF-8 UTF-8/en_PH.UTF-8 UTF-8/" /etc/locale.gen
 	/usr/sbin/locale-gen
 
@@ -122,8 +123,15 @@ EOF
 	systemctl enable mysql
 	chage -d 0 root #expire root password again
 
+	#Copy node-red config
+	mkdir -p /srv/nodered/.node-red
+	cp /tmp/overlays/settings.js /srv/nodered/.node-red/settings.js
+	cp /tmp/overlays/flows_iot.json /srv/nodered/.node-red/
+	chown nodered:nodered /srv/nodered/.node-red -r
+	
 	# Final network steps
 	cp /tmp/overlay/wlan0_interface /etc/network/interfaces.d/wlan0
+	cp /tmp/overlay/eth0_interface /etc/network/interfaces.d/eth0
 	sed -i -e "s/^#DAEMON_CONF=.*/DAEMON_CONF=\"\/etc\/hostapd.conf\"/" /etc/default/hostapd
 	sed -i -e "s/^#auto wlan0/auto wlan0/" /etc/network/interfaces.d/wlan0
 	sed -i -e "s/^#//" /etc/dnsmasq.conf
