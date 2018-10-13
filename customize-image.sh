@@ -43,7 +43,7 @@ InstallIoTHub() {
 	ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
 	resolvconf --enable-updates
 	echo "nameserver 192.168.122.1" >> /etc/resolv.conf
-	apt-get --yes --force-yes install pwgen
+	apt-get --yes --force-yes install pwgen debconf-utils html2text dirmngr armbian-config libassuan0 libnpth0 libksba8
 	PHPMYADMIN_PASS=$(pwgen 10 1)
 	debconf-set-selections <<< "mysql-server mysql-server/root_password password 12345678"
 	debconf-set-selections <<< "mysql-server mysql-server/root_password_again password 12345678"
@@ -61,6 +61,9 @@ InstallIoTHub() {
 	deb https://deb.nodesource.com/node_8.x ${RELEASE} main
 	deb-src https://deb.nodesource.com/node_8.x ${RELEASE} main
 	EOF
+
+	#Modify amrbianEnv
+	echo "disp_dvi_compat=1" >> /boot/armbianEnv.txt
 
 	#Install packages
 	apt-get update
@@ -85,7 +88,7 @@ EOF
 	echo "=============            Installing Node-RED            ============="
 	#Install node-red
 	npm install --unsafe -g node-red node-red-dashboard node-red-contrib-sqldbs node-red-contrib-alexa \
-		node-red-contrib-chatbot node-red-contrib-http-request node-red-node-twitter node-red-contrib-config
+		node-red-contrib-chatbot node-red-contrib-http-request node-red-node-twitter node-red-contrib-config node-red-admin
 
 	echo "=============   Configuring hostapd, nginx and dnsmasq   ============="
 	#Setup config of nginx and add nodered service file
@@ -125,9 +128,9 @@ EOF
 
 	#Copy node-red config
 	mkdir -p /srv/nodered/.node-red
-	cp /tmp/overlays/settings.js /srv/nodered/.node-red/settings.js
-	cp /tmp/overlays/flows_iot.json /srv/nodered/.node-red/
-	chown nodered:nodered /srv/nodered/.node-red -r
+	cp /tmp/overlay/settings.js /srv/nodered/.node-red/settings.js
+	cp /tmp/overlay/flows_iot.json /srv/nodered/.node-red/
+	chown nodered:nodered /srv/nodered/.node-red -R
 	
 	# Final network steps
 	cp /tmp/overlay/wlan0_interface /etc/network/interfaces.d/wlan0

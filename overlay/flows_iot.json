@@ -1,0 +1,1 @@
+[{"id":"407a01e4.6b637","type":"mqtt-broker","z":"","broker":"10.7.1.1","port":"1883","clientid":"nodered","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"willTopic":"","willQos":"0","willPayload":"","birthTopic":"","birthQos":"0","birthPayload":""}]
