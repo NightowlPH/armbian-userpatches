@@ -82,7 +82,7 @@ EOF
 	echo "=============         Installing other packages         ============="
 	apt-get --yes --force-yes \
 		-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install \
-		php-fpm php nginx-full php-mysql phpmyadmin composer php-cli php-gd php-curl nodejs mosquitto dnsmasq hostapd iptables sed vim aptitude
+		php-fpm php nginx-full php-zip php-mysql phpmyadmin composer php-cli php-gd php-curl nodejs mosquitto dnsmasq hostapd iptables sed vim aptitude
 	#/bin/bash #Use this to drop into a shell
 
 	echo "=============            Installing Node-RED            ============="
